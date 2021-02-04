@@ -12,10 +12,10 @@ const constants = require('../config');
 router.get('/city/:city?', (req, res) => {
     let city = helpers.getCity(req.params.city);
     let getCityURL = `${constants.openWeatherMap.BASE_URL}q=${city}&${constants.openWeatherMap.METRIC_VALUES}&appid=${constants.openWeatherMap.SECRET_KEY}`;
-    request(getCityURL, (err, res, body) => {
+    request(getCityURL, (err, res2, body) => {
         data = JSON.parse(body);
+        res.json(data);
     })
-    res.json(data);
 })
 
 
@@ -24,11 +24,11 @@ router.get('/zip-code/:zipcode?', (req, res) => {
     if (!zipCode) {
         zipCode = 7621;
     }
-    let getCityURL = `${constants.openWeatherMap.BASE_URL}zip=${zipCode},hu&${constants.openWeatherMap.METRIC_VALUES}&appid=${constants.openWeatherMap.SECRET_KEY}`;
-    request(getCityURL, (err, res, body) => {
+    let getZipcodeURL = `${constants.openWeatherMap.BASE_URL}zip=${zipCode},hu&${constants.openWeatherMap.METRIC_VALUES}&appid=${constants.openWeatherMap.SECRET_KEY}`;
+    request(getZipcodeURL, (err, res2, body) => {
         data = JSON.parse(body);
+        res.json(data);
     })
-    res.json(data);
 })
 
 
@@ -41,10 +41,10 @@ router.get('/coordinates/:lat?/:lon?', (req, res) => {
         longitude = 18.226499094;
     }
     let getCoordinatesURL = `${constants.openWeatherMap.BASE_URL}lat=${latitude}&lon=${longitude}&${constants.openWeatherMap.METRIC_VALUES}&appid=${constants.openWeatherMap.SECRET_KEY}`;
-    request(getCoordinatesURL, (err, res, body) => {
+    request(getCoordinatesURL, (err, res2, body) => {
         data = JSON.parse(body);
+        res.json(data);
     })
-    res.json(data);
 })
 
 module.exports = router;
